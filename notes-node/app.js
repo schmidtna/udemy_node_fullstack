@@ -9,8 +9,6 @@ const notes = require('./notes.js');
 //if we log process.argv, the 3rd item on the list will be any command we input, so we pull that index 
 const argv = yargs.argv;
 var command = argv._[0];
-console.log('Command: ', command);
-console.log('yargs', yargs.argv);
 
 if (command === 'add') {
     var note = notes.addNote(argv.title, argv.body);
@@ -21,6 +19,9 @@ if (command === 'add') {
         console.log('Note title in use.');
     }
 } else if (command === 'list') {
+    var allNotes = notes.getAll();
+    console.log(`Printing ${allNotes.length} note(s).`);
+    allNotes.forEach((note) => notes.logNote(note));
     notes.getAll();
 } else if (command === 'read') {
     var note = notes.getNote(argv.title);
