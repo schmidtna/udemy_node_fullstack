@@ -6,8 +6,24 @@ const yargs = require('yargs');
 
 const notes = require('./notes.js');
 
+const titleArgs = { describe: 'Title of note', demand: true, alias: 't'};
+const bodyArgs = { describe: 'The contents of the note', demand: true, alias: 'b'}
 //if we log process.argv, the 3rd item on the list will be any command we input, so we pull that index 
-const argv = yargs.argv;
+const argv = yargs
+    .command('add', 'Add a new note', {
+        title: titleArgs,
+        body: bodyArgs
+    })
+    .command('list', 'List all notes')
+    .command('read', 'Read a note', {
+        title: titleArgs
+    })
+    .command('remove', 'Remove a note', {
+        title: titleArgs
+    })
+    .help()
+    .argv;
+
 var command = argv._[0];
 
 if (command === 'add') {
